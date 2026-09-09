@@ -1,0 +1,107 @@
+/* Marca: selo grafite com monograma MM + wordmark e microlabel bronze. */
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  line-height: 1;
+}
+
+.seal {
+  width: var(--logo-seal, 40px);
+  height: var(--logo-seal, 40px);
+  flex: none;
+}
+
+.sealBody {
+  fill: var(--ink-900);
+}
+
+.sealEdge {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 1.5;
+}
+
+.mark {
+  fill: none;
+  stroke: var(--bone-50);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bar {
+  fill: var(--brand-500);
+}
+
+.lockup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: var(--logo-word, 1.125rem);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tagline {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans);
+  /* menor que o microlabel padrao para nao competir com o wordmark */
+  font-size: calc(var(--fs-3xs) * 0.8);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.taglineExtra {
+  display: none;
+}
+
+.dot {
+  margin-inline: var(--sp-1);
+}
+
+/* ---- Tom escuro: sobre fundo claro ---- */
+.dark .wordmark {
+  color: var(--ink-900);
+}
+
+.dark .tagline {
+  color: var(--brand-600);
+}
+
+/* ---- Tom claro: sobre faixa grafite ---- */
+.light .sealBody {
+  fill: var(--ink-800);
+}
+
+.light .sealEdge {
+  stroke: var(--dark-line-strong);
+}
+
+.light .wordmark {
+  color: var(--dark-text);
+}
+
+.light .tagline {
+  color: var(--brand-400);
+}
+
+@media (min-width: 640px) {
+  .taglineExtra {
+    display: inline-flex;
+    align-items: center;
+  }
+}

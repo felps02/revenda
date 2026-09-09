@@ -1,0 +1,153 @@
+/* Atalho de atendimento: barra fixa no celular, botão flutuante no desktop. */
+
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-float);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--gutter) calc(var(--sp-3) + env(safe-area-inset-bottom));
+  background-color: var(--ink-900);
+  border-top: 1px solid var(--dark-line);
+  box-shadow: var(--sh-lg);
+}
+
+.barWhats,
+.barCall {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: 48px;
+  padding-inline: var(--sp-4);
+  border-radius: var(--r-md);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.barWhats {
+  background-color: var(--whats-500);
+  color: var(--ink-900);
+}
+
+.barWhats:active {
+  background-color: var(--whats-600);
+}
+
+.barCall {
+  border: 1px solid var(--dark-line-strong);
+  color: var(--dark-text);
+}
+
+.barCall:active {
+  background-color: var(--ink-800);
+}
+
+/* ---- Botão flutuante (desktop) ---- */
+.float {
+  display: none;
+}
+
+.pulse {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--whats-500);
+  border-radius: var(--r-pill);
+  opacity: 0;
+}
+
+.tooltip {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + var(--sp-3));
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--dark-line);
+  border-radius: var(--r-sm);
+  background-color: var(--ink-900);
+  color: var(--dark-text);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(var(--sp-2), -50%);
+  pointer-events: none;
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+@media (min-width: 768px) {
+  .bar {
+    display: none;
+  }
+
+  .float {
+    position: fixed;
+    right: var(--sp-6);
+    bottom: var(--sp-6);
+    z-index: var(--z-float);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: var(--r-pill);
+    background-color: var(--whats-500);
+    color: var(--ink-900);
+    box-shadow: var(--sh-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.9);
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease),
+      visibility var(--dur) var(--ease), background-color var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease);
+  }
+
+  .floatVisible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .float:hover {
+    background-color: var(--whats-600);
+    box-shadow: var(--sh-xl);
+  }
+
+  .floatVisible:hover {
+    transform: translateY(-2px) scale(1.03);
+  }
+
+  .float:hover .tooltip,
+  .float:focus-visible .tooltip {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+
+  /* Pulso discreto: um anel que abre devagar e some. */
+  .floatVisible .pulse {
+    animation: ring 3.4s var(--ease-out) infinite;
+  }
+}
+
+@keyframes ring {
+  0% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    display: none;
+  }
+}

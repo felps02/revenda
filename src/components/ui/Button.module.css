@@ -1,0 +1,199 @@
+/* Botao base: altura, ritmo e microinteracao iguais em todas as variantes. */
+.root {
+  --btn-h: 46px;
+  --btn-px: var(--sp-5);
+  --btn-fs: var(--fs-sm);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: var(--btn-h);
+  padding-block: var(--sp-2);
+  padding-inline: var(--btn-px);
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  font-family: var(--font-sans);
+  font-size: var(--btn-fs);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.005em;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.root:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.root:active:not(:disabled) {
+  transform: translateY(0);
+  transition-duration: var(--dur-fast);
+}
+
+.root:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.label {
+  display: inline-block;
+}
+
+.icon {
+  flex: none;
+}
+
+/* ---- Tamanhos ---- */
+.sm {
+  --btn-h: 36px;
+  --btn-px: var(--sp-4);
+  --btn-fs: var(--fs-xs);
+  border-radius: var(--r-sm);
+  gap: var(--sp-2);
+}
+
+.md {
+  --btn-h: 46px;
+}
+
+.lg {
+  --btn-h: 56px;
+  --btn-px: var(--sp-6);
+  --btn-fs: var(--fs-md);
+  gap: var(--sp-3);
+}
+
+/* No celular todo alvo de toque respeita o minimo de 44px. */
+@media (pointer: coarse) {
+  .sm {
+    --btn-h: 44px;
+    --btn-px: var(--sp-5);
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* ---- Variantes ---- */
+.primary {
+  background-color: var(--ink-900);
+  color: var(--bone-50);
+  box-shadow: var(--sh-sm);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--ink-800);
+  box-shadow: var(--sh-md);
+}
+
+.dark {
+  background-color: var(--ink-700);
+  color: var(--bone-50);
+  box-shadow: var(--sh-sm);
+}
+
+.dark:hover:not(:disabled) {
+  background-color: var(--ink-600);
+  box-shadow: var(--sh-md);
+}
+
+.outline {
+  background-color: transparent;
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.outline:hover:not(:disabled) {
+  background-color: var(--surface);
+  border-color: var(--ink-900);
+  box-shadow: var(--sh-sm);
+}
+
+.ghost {
+  background-color: transparent;
+  color: var(--text);
+}
+
+.ghost:hover:not(:disabled) {
+  background-color: var(--bg-alt);
+}
+
+.whatsapp {
+  background-color: var(--whats-500);
+  color: var(--surface);
+  box-shadow: var(--sh-sm);
+}
+
+.whatsapp:hover:not(:disabled) {
+  background-color: var(--whats-600);
+  box-shadow: var(--sh-md);
+}
+
+.light {
+  background-color: var(--bone-50);
+  color: var(--ink-900);
+  box-shadow: var(--sh-sm);
+}
+
+.light:hover:not(:disabled) {
+  background-color: var(--surface);
+  box-shadow: var(--sh-md);
+}
+
+/* ---- Ajuste automatico dentro de faixa escura ---- */
+:global(.band-dark) .outline {
+  border-color: var(--dark-line-strong);
+  color: var(--dark-text);
+}
+
+:global(.band-dark) .outline:hover:not(:disabled) {
+  background-color: var(--dark-surface-2);
+  border-color: var(--dark-text-muted);
+  box-shadow: none;
+}
+
+:global(.band-dark) .ghost {
+  color: var(--dark-text);
+}
+
+:global(.band-dark) .ghost:hover:not(:disabled) {
+  background-color: var(--dark-line);
+}
+
+/* ---- Carregando ---- */
+.spinner {
+  flex: none;
+  width: 1.05em;
+  height: 1.05em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--r-pill);
+  opacity: 0.85;
+  animation: buttonSpin 620ms linear infinite;
+}
+
+@keyframes buttonSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    border-top-color: currentColor;
+    opacity: 0.4;
+  }
+}

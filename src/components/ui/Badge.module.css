@@ -1,0 +1,93 @@
+/* Microlabel em caixa alta: mesma familia visual do .eyebrow global. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  max-width: 100%;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  font-family: var(--font-sans);
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.icon {
+  flex: none;
+  margin-inline-start: -1px;
+}
+
+/* ---- Tamanhos ---- */
+.sm {
+  min-height: 22px;
+  padding-inline: var(--sp-2);
+  gap: var(--sp-1);
+}
+
+.md {
+  min-height: 30px;
+  padding-inline: var(--sp-3);
+}
+
+/* ---- Tons ---- */
+.bronze {
+  background-color: var(--brand-50);
+  border-color: var(--brand-100);
+  color: var(--brand-700);
+}
+
+.neutral {
+  background-color: var(--bg-alt);
+  border-color: var(--line);
+  color: var(--ink-600);
+}
+
+.success {
+  background-color: var(--success-100);
+  border-color: transparent;
+  color: var(--success-600);
+}
+
+.alert {
+  background-color: var(--alert-100);
+  border-color: transparent;
+  color: var(--alert-600);
+}
+
+.dark {
+  background-color: var(--ink-900);
+  border-color: var(--ink-900);
+  color: var(--bone-50);
+}
+
+.outline {
+  background-color: transparent;
+  border-color: var(--line-strong);
+  color: var(--text-muted);
+}
+
+/* ---- Dentro de faixa escura ---- */
+:global(.band-dark) .neutral {
+  background-color: var(--dark-surface-2);
+  border-color: var(--dark-line);
+  color: var(--dark-text);
+}
+
+:global(.band-dark) .outline {
+  border-color: var(--dark-line-strong);
+  color: var(--dark-text-muted);
+}
+
+:global(.band-dark) .dark {
+  background-color: var(--bone-50);
+  border-color: var(--bone-50);
+  color: var(--ink-900);
+}

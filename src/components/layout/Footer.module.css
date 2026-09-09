@@ -1,0 +1,269 @@
+/* Rodapé: faixa grafite, colunas empilhadas no celular e 4 colunas no desktop. */
+
+.footer {
+  padding-top: clamp(3rem, 6vw, 5rem);
+  /* espaço extra para a barra fixa de WhatsApp/Ligar do celular */
+  padding-bottom: calc(var(--sp-7) + 76px + env(safe-area-inset-bottom));
+}
+
+.top {
+  display: grid;
+  gap: var(--sp-7);
+}
+
+/* ---- Coluna da marca ---- */
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-5);
+}
+
+.brandLink {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  border-radius: var(--r-sm);
+  --logo-seal: 44px;
+  --logo-word: 1.25rem;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.brandLink:hover {
+  opacity: 0.85;
+}
+
+.pitch {
+  max-width: 34ch;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--dark-text-muted);
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--dark-line);
+  border-radius: var(--r-md);
+  color: var(--dark-text-muted);
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.socialLink:hover {
+  background-color: var(--ink-800);
+  border-color: var(--dark-line-strong);
+  color: var(--brand-400);
+}
+
+.seal {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--dark-line-strong);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--brand-300);
+}
+
+.seal svg {
+  color: var(--brand-400);
+}
+
+/* ---- Colunas de navegação ---- */
+.navCol {
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--dark-line);
+}
+
+.footer .colTitle {
+  margin-bottom: var(--sp-4);
+  font-family: var(--font-sans);
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--brand-400);
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--fs-sm);
+  color: var(--dark-text-muted);
+  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--dark-text);
+  transform: translateX(3px);
+}
+
+/* ---- Bloco de contato ---- */
+.contact {
+  display: grid;
+  gap: var(--sp-6);
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-7);
+  border-top: 1px solid var(--dark-line);
+}
+
+.contactCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.contactLink {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  min-height: 44px;
+  padding-block: var(--sp-1);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--dark-text-muted);
+  transition: color var(--dur) var(--ease);
+}
+
+.contactLink svg {
+  flex: none;
+  margin-top: 3px;
+  color: var(--brand-400);
+}
+
+.contactLink:hover,
+.contactLink:focus-visible {
+  color: var(--dark-text);
+}
+
+.hours {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.hoursItem {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  max-width: 30ch;
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--dark-line);
+  font-size: var(--fs-sm);
+  color: var(--dark-text-muted);
+}
+
+.hoursValue {
+  color: var(--dark-text);
+  white-space: nowrap;
+}
+
+/* ---- Barra inferior ---- */
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--dark-line);
+}
+
+.legal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  font-size: var(--fs-2xs);
+  color: var(--dark-text-muted);
+}
+
+.legalDoc {
+  color: var(--ink-400);
+}
+
+.disclaimer {
+  max-width: 62ch;
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-normal);
+  color: var(--ink-400);
+}
+
+/* ---- Refinos ---- */
+@media (min-width: 640px) {
+  .top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--sp-6);
+  }
+
+  .brandCol {
+    grid-column: 1 / -1;
+  }
+
+  .contact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .footer {
+    padding-bottom: var(--sp-8);
+  }
+
+  .contact {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-7);
+  }
+}
+
+@media (min-width: 1024px) {
+  .top {
+    grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+    column-gap: var(--sp-8);
+  }
+
+  .brandCol {
+    grid-column: auto;
+    padding-right: var(--sp-6);
+  }
+
+  .navCol {
+    padding-top: var(--sp-1);
+    border-top: none;
+  }
+
+  .bottom {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--sp-8);
+    margin-top: var(--sp-9);
+  }
+
+  .disclaimer {
+    max-width: 48ch;
+    text-align: right;
+  }
+}

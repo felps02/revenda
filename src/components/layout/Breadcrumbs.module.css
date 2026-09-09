@@ -1,0 +1,93 @@
+/* Trilha de navegação: tipografia pequena, rola de lado no celular. */
+
+.root {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.root::-webkit-scrollbar {
+  display: none;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  min-width: max-content;
+  padding-block: var(--sp-1);
+  font-size: var(--fs-2xs);
+  line-height: 1;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding-inline: var(--sp-1);
+  border-radius: var(--r-xs);
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease);
+}
+
+.current {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding-inline: var(--sp-1);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.separator {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---- Sobre fundo claro ---- */
+.dark .link {
+  color: var(--text-muted);
+}
+
+.dark .link:hover,
+.dark .link:focus-visible {
+  color: var(--brand-600);
+}
+
+.dark .current {
+  color: var(--text);
+}
+
+.dark .separator {
+  color: var(--ink-300);
+}
+
+/* ---- Sobre faixa grafite ---- */
+.light .link {
+  color: var(--dark-text-muted);
+}
+
+.light .link:hover,
+.light .link:focus-visible {
+  color: var(--brand-400);
+}
+
+.light .current {
+  color: var(--dark-text);
+}
+
+.light .separator {
+  color: var(--ink-500);
+}
+
+@media (min-width: 768px) {
+  .list {
+    font-size: var(--fs-xs);
+  }
+}

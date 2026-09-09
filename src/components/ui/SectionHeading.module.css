@@ -1,0 +1,98 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  margin-bottom: var(--sp-7);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.title {
+  margin: 0;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+.description {
+  margin: 0;
+  font-size: var(--fs-lg);
+}
+
+.action {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+/* ---- Alinhamento ---- */
+.center {
+  align-items: center;
+  text-align: center;
+}
+
+.center .text {
+  align-items: center;
+}
+
+.center .title {
+  max-width: 24ch;
+}
+
+.center .description {
+  margin-inline: auto;
+}
+
+.left .title {
+  max-width: 20ch;
+}
+
+/* ---- Tom escuro (uso fora de .band-dark) ---- */
+.dark .title {
+  color: var(--dark-text);
+}
+
+.dark .description {
+  color: var(--dark-text-muted);
+}
+
+.dark :global(.eyebrow) {
+  color: var(--brand-400);
+}
+
+@media (min-width: 640px) {
+  .title {
+    max-width: 26ch;
+  }
+
+  .left .title {
+    max-width: 24ch;
+  }
+}
+
+@media (min-width: 768px) {
+  .root {
+    gap: var(--sp-6);
+    margin-bottom: var(--sp-8);
+  }
+
+  .withAction.left {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--sp-7);
+  }
+
+  .withAction.left .text {
+    flex: 1 1 auto;
+  }
+
+  .withAction.left .action {
+    flex: none;
+    padding-bottom: var(--sp-1);
+  }
+}

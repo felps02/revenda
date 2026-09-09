@@ -1,0 +1,153 @@
+/* =========================================================================
+   Marchetti Motors - Design tokens
+   Identidade: grafite profundo + off-white quente + bronze automotivo.
+   Toda cor, sombra, raio, espacamento e tipografia do site sai daqui.
+   ========================================================================= */
+
+:root {
+  /* ---- Tinta / neutros frios (superficies escuras e textos) ---- */
+  --ink-950: #080A0B;
+  --ink-900: #0C0F11;
+  --ink-850: #101417;
+  --ink-800: #14181B;
+  --ink-700: #1D2226;
+  --ink-600: #2A3136;
+  --ink-500: #3D464C;
+  --ink-400: #5C666D;
+  --ink-300: #8B959B;
+  --ink-200: #B9C0C4;
+  --ink-100: #DDE1E3;
+
+  /* ---- Osso / neutros quentes (fundo claro editorial) ---- */
+  --bone-50: #FBF9F6;
+  --bone-100: #F4F1EB;
+  --bone-200: #EAE5DC;
+  --bone-300: #DCD5C9;
+
+  /* ---- Bronze (acento da marca) ---- */
+  --brand-700: #8A4D16;
+  --brand-600: #A85F1E;
+  --brand-500: #C87A2C;
+  --brand-400: #DF9750;
+  --brand-300: #EDB47C;
+  --brand-100: #F7E9DA;
+  --brand-50: #FCF5ED;
+
+  /* ---- Sinal ---- */
+  --whats-500: #25D366;
+  --whats-600: #1EBE5A;
+  --whats-700: #128C7E;
+  --success-600: #1F7A4D;
+  --success-100: #E4F3EB;
+  --alert-600: #B3541E;
+  --alert-100: #FBEBE0;
+  --danger-600: #B02A2A;
+  --danger-100: #F9E6E6;
+
+  /* ---- Papeis semanticos: superficie clara ---- */
+  --bg: var(--bone-50);
+  --bg-alt: var(--bone-100);
+  --surface: #FFFFFF;
+  --surface-2: var(--bone-100);
+  --text: var(--ink-900);
+  --text-muted: var(--ink-400);
+  --text-subtle: var(--ink-300);
+  --line: rgba(12, 15, 17, 0.10);
+  --line-strong: rgba(12, 15, 17, 0.18);
+
+  /* ---- Papeis semanticos: superficie escura ---- */
+  --dark-bg: var(--ink-900);
+  --dark-surface: var(--ink-800);
+  --dark-surface-2: var(--ink-700);
+  --dark-text: #F6F7F7;
+  --dark-text-muted: var(--ink-300);
+  --dark-line: rgba(255, 255, 255, 0.10);
+  --dark-line-strong: rgba(255, 255, 255, 0.18);
+
+  /* ---- Tipografia ---- */
+  --font-display: var(--font-sora), "Sora", system-ui, sans-serif;
+  --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* escala fluida */
+  --fs-3xs: 0.6875rem;  /* 11px - microlabels */
+  --fs-2xs: 0.75rem;    /* 12px */
+  --fs-xs: 0.8125rem;   /* 13px */
+  --fs-sm: 0.875rem;    /* 14px */
+  --fs-md: 1rem;        /* 16px */
+  --fs-lg: 1.0625rem;   /* 17px */
+  --fs-xl: clamp(1.125rem, 0.4vw + 1.03rem, 1.25rem);
+  --fs-h4: clamp(1.25rem, 0.6vw + 1.1rem, 1.5rem);
+  --fs-h3: clamp(1.5rem, 1vw + 1.25rem, 2rem);
+  --fs-h2: clamp(1.875rem, 2vw + 1.3rem, 2.875rem);
+  --fs-h1: clamp(2.25rem, 4.2vw + 1.1rem, 4.25rem);
+  --fs-display: clamp(2.75rem, 6vw + 1rem, 5.5rem);
+
+  --lh-tight: 1.05;
+  --lh-snug: 1.18;
+  --lh-normal: 1.45;
+  --lh-relaxed: 1.65;
+
+  --tracking-label: 0.14em;
+  --tracking-tight: -0.02em;
+  --tracking-tighter: -0.035em;
+
+  /* ---- Espacamento ---- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-7: 2rem;
+  --sp-8: 2.5rem;
+  --sp-9: 3rem;
+  --sp-10: 4rem;
+  --sp-11: 5rem;
+  --sp-12: 6.5rem;
+
+  --section-y: clamp(3.5rem, 7vw, 7rem);
+  --container: 1240px;
+  --container-wide: 1440px;
+  --container-narrow: 880px;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+
+  /* ---- Raios ---- */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 26px;
+  --r-pill: 999px;
+
+  /* ---- Sombras (discretas, nunca coloridas) ---- */
+  --sh-xs: 0 1px 2px rgba(12, 15, 17, 0.06);
+  --sh-sm: 0 2px 8px rgba(12, 15, 17, 0.06), 0 1px 2px rgba(12, 15, 17, 0.04);
+  --sh-md: 0 8px 24px rgba(12, 15, 17, 0.08), 0 2px 6px rgba(12, 15, 17, 0.04);
+  --sh-lg: 0 18px 48px rgba(12, 15, 17, 0.12), 0 4px 12px rgba(12, 15, 17, 0.06);
+  --sh-xl: 0 32px 80px rgba(12, 15, 17, 0.18);
+  --sh-inset-line: inset 0 0 0 1px var(--line);
+
+  /* ---- Movimento ---- */
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 140ms;
+  --dur: 240ms;
+  --dur-slow: 480ms;
+
+  /* ---- Camadas ---- */
+  --z-header: 100;
+  --z-drawer: 200;
+  --z-modal: 300;
+  --z-float: 150;
+  --z-toast: 400;
+
+  /* ---- Alturas fixas ---- */
+  --header-h: 76px;
+  --header-h-sm: 64px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-h: var(--header-h-sm);
+  }
+}
