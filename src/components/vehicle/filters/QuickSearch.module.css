@@ -1,0 +1,166 @@
+/* Painel branco da busca rápida - o pai posiciona sobreposto ao hero. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  width: 100%;
+  padding: var(--sp-5);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+
+.hero {
+  box-shadow: var(--sh-lg);
+}
+
+.inline {
+  box-shadow: var(--sh-sm);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-4);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.total {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.total strong {
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ---------------------------------------------------------------- campos */
+.form {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: end;
+  gap: var(--sp-4);
+}
+
+.cell {
+  min-width: 0;
+}
+
+.submit {
+  display: flex;
+  align-items: flex-end;
+  min-width: 0;
+}
+
+.submitButton {
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- atalhos */
+.shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+}
+
+.shortcutsLabel {
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.shortcutsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: 0;
+}
+
+.shortcut {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background-color: var(--bg);
+  color: var(--text);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.shortcut:hover {
+  background-color: var(--surface);
+  border-color: var(--ink-900);
+  color: var(--brand-700);
+}
+
+/* ---------------------------------------------------------------- refinos */
+@media (min-width: 640px) {
+  .root {
+    padding: var(--sp-6);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .submit {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-4) var(--sp-3);
+  }
+
+  /* Alinha o botão com a altura dos campos na linha do desktop. */
+  .grid .submitButton {
+    --btn-h: 48px;
+    min-height: 48px;
+  }
+
+  .shortcut {
+    min-height: 38px;
+    padding-inline: var(--sp-3);
+  }
+}
+
+@media (min-width: 1280px) {
+  .root {
+    padding: var(--sp-6) var(--sp-7);
+  }
+
+  .grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr)) minmax(168px, auto);
+    gap: var(--sp-3);
+  }
+
+  .submit {
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 1024px) and (pointer: coarse) {
+  .shortcut {
+    min-height: 44px;
+  }
+}

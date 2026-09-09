@@ -1,0 +1,128 @@
+/* Ficha técnica: cartões de dado + linhas de procedência. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-2);
+  margin: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-height: 96px;
+  padding: var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background-color: var(--surface);
+  box-shadow: var(--sh-sm);
+  transition: box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.card:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--sh-md);
+}
+
+.icon {
+  color: var(--brand-600);
+  margin-bottom: var(--sp-1);
+}
+
+.label {
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.value {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+/* ---- Linhas de procedência ---- */
+.trust {
+  display: grid;
+  gap: var(--sp-2);
+  margin: 0;
+}
+
+.trustItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background-color: var(--bg-alt);
+}
+
+.trustIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-pill);
+  background-color: var(--brand-50);
+  color: var(--brand-600);
+}
+
+.trustText {
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--text-muted);
+}
+
+.trustTitle {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  color: var(--text);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-3);
+  }
+
+  .trust {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-3);
+  }
+
+  .value {
+    font-size: var(--fs-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .trust {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .card {
+    min-height: 108px;
+    padding: var(--sp-5);
+  }
+}

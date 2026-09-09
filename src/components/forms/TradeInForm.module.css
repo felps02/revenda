@@ -1,0 +1,240 @@
+/* Avaliacao de usado: dados pessoais e dados do carro lado a lado no desktop. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+.compact {
+  gap: var(--sp-5);
+}
+
+.statusWrap {
+  outline: none;
+}
+
+.columns {
+  display: grid;
+  gap: var(--sp-6);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+
+.columnTitle {
+  font-family: var(--font-sans);
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--brand-600);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.pair {
+  display: grid;
+  gap: var(--sp-4);
+}
+
+/* ---- Upload de fotos ---- */
+.upload {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.uploadHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.uploadLabel {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.counter {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  width: 100%;
+  min-height: 148px;
+  padding: var(--sp-6) var(--sp-4);
+  background-color: var(--surface);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-lg);
+  text-align: center;
+  transition:
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+.dropzone:hover {
+  border-color: var(--brand-500);
+  background-color: var(--brand-50);
+  box-shadow: var(--sh-sm);
+}
+
+.dropzoneActive {
+  border-color: var(--brand-500);
+  border-style: solid;
+  background-color: var(--brand-50);
+  box-shadow: var(--sh-md);
+}
+
+.dropIcon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: var(--sp-1);
+  background-color: var(--bg-alt);
+  border-radius: var(--r-pill);
+  color: var(--brand-600);
+  transition: background-color var(--dur) var(--ease);
+}
+
+.dropzone:hover .dropIcon,
+.dropzoneActive .dropIcon {
+  background-color: var(--brand-100);
+}
+
+.dropTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  color: var(--text);
+}
+
+.dropText {
+  max-width: 34ch;
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--text-muted);
+}
+
+.fileInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.uploadHint {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--text-muted);
+}
+
+.uploadError {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--danger-600);
+}
+
+.uploadErrorIcon {
+  flex: none;
+  margin-top: 2px;
+}
+
+/* ---- Miniaturas ---- */
+.thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: var(--sp-3);
+  margin: var(--sp-1) 0 0;
+}
+
+.thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-sm);
+}
+
+.thumbImage {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+.thumb:hover .thumbImage {
+  transform: scale(1.04);
+}
+
+.thumbRemove {
+  position: absolute;
+  top: var(--sp-1);
+  right: var(--sp-1);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  /* veu escuro para o icone ficar legivel sobre qualquer foto */
+  background-color: rgba(12, 15, 17, 0.66);
+  border-radius: var(--r-sm);
+  color: var(--bone-50);
+  transition: background-color var(--dur) var(--ease);
+}
+
+.thumbRemove:hover {
+  background-color: rgba(12, 15, 17, 0.86);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+@media (min-width: 640px) {
+  .pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .thumbs {
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  }
+
+  .thumbRemove {
+    top: var(--sp-2);
+    right: var(--sp-2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .columns {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: var(--sp-8);
+  }
+
+  .dropzone {
+    min-height: 168px;
+  }
+}

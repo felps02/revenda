@@ -1,0 +1,252 @@
+/* Localizacao: cartao de contato + horarios de um lado, mapa do outro. */
+
+.section {
+  background-color: var(--bg);
+  scroll-margin-top: calc(var(--header-h) + var(--sp-4));
+}
+
+.grid {
+  display: grid;
+  gap: var(--sp-5);
+  margin-top: var(--sp-8);
+  align-items: stretch;
+}
+
+/* ---- Cartao ---- */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  padding: var(--sp-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background-color: var(--surface);
+  box-shadow: var(--sh-sm);
+}
+
+/* ---- Aberto / fechado agora ---- */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  align-self: flex-start;
+  min-height: 36px;
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background-color: var(--bg-alt);
+  color: var(--ink-600);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+}
+
+.statusDot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: var(--r-pill);
+  background-color: var(--ink-300);
+}
+
+.statusText {
+  line-height: var(--lh-normal);
+}
+
+.statusOpen {
+  border-color: transparent;
+  background-color: var(--success-100);
+  color: var(--success-600);
+}
+
+.statusOpen .statusDot {
+  background-color: var(--success-600);
+  box-shadow: 0 0 0 3px var(--success-100);
+}
+
+.statusAppointment {
+  border-color: var(--brand-100);
+  background-color: var(--brand-50);
+  color: var(--brand-700);
+}
+
+.statusAppointment .statusDot {
+  background-color: var(--brand-500);
+}
+
+/* ---- Contatos ---- */
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  min-height: 44px;
+  padding-block: var(--sp-3);
+  border-top: 1px solid var(--line);
+  transition: color var(--dur) var(--ease);
+}
+
+.rows li:first-child .row {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.rowIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  border-radius: var(--r-sm);
+  background-color: var(--bg-alt);
+  color: var(--brand-600);
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.row:hover .rowIcon {
+  background-color: var(--brand-500);
+  color: var(--surface);
+}
+
+.rowBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rowLabel {
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.rowValue {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  line-height: var(--lh-normal);
+  color: var(--text);
+}
+
+.row:hover .rowValue {
+  color: var(--brand-700);
+}
+
+/* ---- Horarios ---- */
+.hours {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid var(--line);
+}
+
+.hoursCaption {
+  padding-top: var(--sp-4);
+  padding-bottom: var(--sp-2);
+  text-align: left;
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+  caption-side: top;
+}
+
+.hoursDay,
+.hoursValue {
+  padding-block: var(--sp-2);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  vertical-align: top;
+}
+
+.hoursDay {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.hoursValue {
+  text-align: right;
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.hoursToday .hoursDay,
+.hoursToday .hoursValue {
+  color: var(--brand-700);
+}
+
+.hoursTag {
+  display: inline-block;
+  margin-left: var(--sp-2);
+  padding-inline: var(--sp-2);
+  border-radius: var(--r-pill);
+  background-color: var(--brand-50);
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--brand-600);
+}
+
+/* ---- Acoes ---- */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: auto;
+  padding-top: var(--sp-2);
+}
+
+/* ---- Mapa ---- */
+.mapFrame {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background-color: var(--bg-alt);
+  box-shadow: var(--sh-sm);
+  min-height: 380px;
+}
+
+.map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  border: 0;
+}
+
+/* ---- Refinos ---- */
+@media (min-width: 640px) {
+  .card {
+    padding: var(--sp-6);
+  }
+
+  .actions {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: var(--sp-6);
+    margin-top: var(--sp-9);
+  }
+
+  .card {
+    padding: var(--sp-7);
+  }
+
+  .mapFrame,
+  .map {
+    min-height: 480px;
+  }
+}

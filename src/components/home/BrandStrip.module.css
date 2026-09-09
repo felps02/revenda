@@ -1,0 +1,109 @@
+/* Faixa de marcas: rola na horizontal no celular, quebra em linhas no desktop. */
+
+.section {
+  padding-block: clamp(2rem, 4vw, 3rem);
+  background-color: var(--bg);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.list {
+  display: flex;
+  gap: var(--sp-2);
+  margin: 0;
+  /* Sangra na borda para as pílulas não parecerem cortadas ao rolar. */
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  padding-bottom: var(--sp-1);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.list::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  flex: none;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  padding-inline: var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background-color: var(--surface);
+  color: var(--text);
+  white-space: nowrap;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.pill:hover,
+.pill:focus-visible {
+  border-color: var(--line-strong);
+  box-shadow: var(--sh-sm);
+  transform: translateY(-2px);
+}
+
+.name {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+}
+
+.count {
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  color: var(--text-subtle);
+  transition: color var(--dur) var(--ease);
+}
+
+.pill:hover .count,
+.pill:focus-visible .count {
+  color: var(--brand-600);
+}
+
+@media (min-width: 1024px) {
+  .inner {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--sp-6);
+  }
+
+  .title {
+    flex: none;
+    max-width: 8ch;
+    line-height: var(--lh-normal);
+  }
+
+  .list {
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    margin-inline: 0;
+    padding-inline: 0;
+    padding-bottom: 0;
+    overflow: visible;
+  }
+}

@@ -1,0 +1,95 @@
+/* Pílulas do que está filtrado agora, acima da grade de veículos. */
+
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+  width: 100%;
+}
+
+.label {
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 36px;
+  padding-inline: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background-color: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  line-height: 1.2;
+  box-shadow: var(--sh-xs);
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+.chip:hover {
+  border-color: var(--ink-900);
+  box-shadow: var(--sh-sm);
+}
+
+.chipLabel {
+  max-width: 22ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chipIcon {
+  flex: none;
+  color: var(--text-subtle);
+  transition: color var(--dur) var(--ease);
+}
+
+.chip:hover .chipIcon {
+  color: var(--brand-600);
+}
+
+.clear {
+  min-height: 36px;
+  padding-inline: var(--sp-2);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--brand-600);
+  transition: color var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+
+.clear:hover {
+  background-color: var(--brand-50);
+  color: var(--brand-700);
+}
+
+/* No celular a pílula precisa do alvo de toque cheio. */
+@media (pointer: coarse) {
+  .chip,
+  .clear {
+    min-height: 44px;
+  }
+}
+
+@media (min-width: 768px) {
+  .chipLabel {
+    max-width: 32ch;
+  }
+}

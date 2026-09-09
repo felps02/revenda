@@ -1,0 +1,53 @@
+.wrapper {
+  padding-top: calc(var(--header-h) + clamp(3rem, 8vw, 6rem));
+  padding-bottom: var(--section-y);
+  text-align: center;
+}
+
+.code {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 14vw, 8rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--tracking-tighter);
+  color: var(--brand-100);
+}
+
+.wrapper h1 {
+  margin-top: calc(-1 * var(--sp-4));
+}
+
+.wrapper .lead {
+  margin: var(--sp-5) auto 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  justify-content: center;
+  margin-top: var(--sp-8);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-5);
+  justify-content: center;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: var(--sp-7);
+  border-top: 1px solid var(--line);
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  transition: color var(--dur) var(--ease);
+}
+
+.links a:hover {
+  color: var(--brand-600);
+}

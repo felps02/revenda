@@ -1,0 +1,210 @@
+/* Historia da revenda: coluna de texto + foto com moldura bronze deslocada. */
+
+.section {
+  background-color: var(--bg);
+}
+
+.grid {
+  display: grid;
+  gap: var(--sp-9);
+  align-items: start;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+.accent {
+  color: var(--brand-600);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  max-width: 62ch;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-relaxed);
+  color: var(--ink-600);
+}
+
+/* ---- Bloco de procedencia (ancora #procedencia) ---- */
+.procedencia {
+  border-left: 2px solid var(--brand-500);
+  padding: var(--sp-1) 0 var(--sp-1) var(--sp-5);
+  scroll-margin-top: calc(var(--header-h) + var(--sp-6));
+}
+
+.procedenciaLabel {
+  display: block;
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--brand-600);
+}
+
+.procedenciaTitle {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-h4);
+}
+
+.procedenciaText {
+  margin-top: var(--sp-3);
+  max-width: 60ch;
+  color: var(--text-muted);
+  line-height: var(--lh-relaxed);
+}
+
+/* ---- Foto com moldura ---- */
+.figure {
+  position: relative;
+  margin: 0;
+  padding-bottom: var(--sp-6);
+}
+
+.frame {
+  position: absolute;
+  inset: var(--sp-5) calc(var(--sp-5) * -1) calc(var(--sp-5) * -1) var(--sp-5);
+  border: 1px solid var(--brand-500);
+  border-radius: var(--r-lg);
+  pointer-events: none;
+}
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+  background-color: var(--bg-alt);
+  aspect-ratio: 4 / 5;
+  box-shadow: var(--sh-md);
+}
+
+.image {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+.figure:hover .image {
+  transform: scale(1.04);
+}
+
+.caption {
+  position: relative;
+  margin: calc(var(--sp-6) * -1) var(--sp-4) 0 var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--r-md);
+  background-color: var(--ink-900);
+  color: var(--dark-text);
+  box-shadow: var(--sh-lg);
+}
+
+.captionValue {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+}
+
+.captionText {
+  display: block;
+  margin-top: var(--sp-1);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--ink-300);
+}
+
+/* ---- Missao, visao e valores ---- */
+.pillars {
+  display: grid;
+  gap: var(--sp-4);
+  margin-top: var(--sp-9);
+  padding-top: var(--sp-9);
+  border-top: 1px solid var(--line);
+}
+
+.pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  padding: var(--sp-6);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background-color: var(--surface);
+  box-shadow: var(--sh-sm);
+  transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.pillar:hover {
+  box-shadow: var(--sh-md);
+  transform: translateY(-2px);
+}
+
+.pillarIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--sp-2);
+  border-radius: var(--r-md);
+  background-color: var(--brand-50);
+  color: var(--brand-600);
+}
+
+.pillarLabel {
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.pillarTitle {
+  font-size: var(--fs-xl);
+  letter-spacing: var(--tracking-tight);
+}
+
+.pillarText {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+}
+
+/* ---- Refinos ---- */
+@media (min-width: 640px) {
+  .caption {
+    margin-inline: var(--sp-6) var(--sp-9);
+  }
+
+  .pillars {
+    gap: var(--sp-5);
+  }
+}
+
+@media (min-width: 768px) {
+  .pillars {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: var(--sp-11);
+  }
+
+  .figure {
+    position: sticky;
+    top: calc(var(--header-h) + var(--sp-6));
+  }
+
+  .photo {
+    aspect-ratio: 3 / 4;
+  }
+}

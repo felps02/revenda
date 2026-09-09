@@ -1,0 +1,73 @@
+/* Linha de resultado: contagem à esquerda, ordenação à direita. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  width: 100%;
+}
+
+.count {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--text-muted);
+}
+
+.number {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  color: var(--text);
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+/* O SelectInput envolve o campo num <span>; ele precisa ocupar o resto da linha. */
+.sort > span {
+  flex: 1;
+  min-width: 0;
+}
+
+.label {
+  flex: none;
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+/* No celular o campo mantém os 16px do Field - abaixo disso o iOS dá zoom. */
+.sort .select {
+  background-color: var(--surface);
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .root {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-5);
+  }
+
+  .sort {
+    flex: none;
+  }
+
+  .sort > span {
+    flex: none;
+    min-width: 224px;
+  }
+
+  .sort .select {
+    min-height: 44px;
+    font-size: var(--fs-sm);
+  }
+}

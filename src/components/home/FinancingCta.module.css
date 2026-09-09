@@ -1,0 +1,241 @@
+/* Bloco claro em duas colunas: argumento à esquerda, simulação à direita. */
+
+.section {
+  background-color: var(--bg-alt);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-7);
+  align-items: start;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+.title {
+  margin: 0;
+  max-width: 20ch;
+  font-size: var(--fs-h2);
+  line-height: 1.08;
+  letter-spacing: var(--tracking-tighter);
+  text-wrap: balance;
+}
+
+.text {
+  margin: 0;
+  max-width: 48ch;
+  font-size: var(--fs-md);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+}
+
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin: 0;
+}
+
+.point {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--text);
+}
+
+.pointIcon {
+  flex: none;
+  margin-top: 2px;
+  color: var(--brand-600);
+}
+
+/* ---- Bancos ---- */
+.partners {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  width: 100%;
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--line);
+}
+
+.partnersLabel {
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.partnersList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: 0;
+}
+
+.partner {
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background-color: var(--surface);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ---- Cartão de simulação ---- */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  width: 100%;
+  padding: var(--sp-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background-color: var(--surface);
+  box-shadow: var(--sh-sm);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.cardLabel {
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.cardIcon {
+  flex: none;
+  color: var(--brand-600);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.rowLabel {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.rowValue {
+  margin: 0;
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.installment {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.installmentLabel {
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.installmentValue {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  margin: 0;
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-tight);
+}
+
+.installmentCount {
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.installmentAmount {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--brand-600);
+}
+
+.disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  margin: 0;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-normal);
+  color: var(--text-subtle);
+}
+
+.disclaimerIcon {
+  flex: none;
+  margin-top: 2px;
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: var(--sp-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .inner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: var(--sp-9);
+    align-items: center;
+  }
+
+  .content {
+    gap: var(--sp-5);
+  }
+
+  .text {
+    font-size: var(--fs-lg);
+  }
+
+  .point {
+    font-size: var(--fs-md);
+  }
+
+  .card {
+    padding: var(--sp-7);
+  }
+
+  .installmentAmount {
+    font-size: var(--fs-h2);
+  }
+}

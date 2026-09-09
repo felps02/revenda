@@ -1,0 +1,147 @@
+/* Compartilhar: gatilho + popover de fallback (copiar, WhatsApp, Facebook). */
+
+.root {
+  position: relative;
+  display: inline-flex;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  flex: none;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background-color: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.iconOnly {
+  width: 44px;
+  min-width: 44px;
+}
+
+.inline {
+  padding-inline: var(--sp-4);
+}
+
+.label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@media (hover: hover) {
+  .trigger:hover {
+    border-color: var(--ink-900);
+    box-shadow: var(--sh-sm);
+  }
+}
+
+.triggerOpen {
+  border-color: var(--ink-900);
+  background-color: var(--bg-alt);
+}
+
+/* ---- Popover ---- */
+.popover {
+  position: absolute;
+  top: calc(100% + var(--sp-2));
+  right: 0;
+  z-index: var(--z-float);
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  min-width: 0;
+  max-width: min(78vw, 260px);
+  padding: var(--sp-2);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-lg);
+  animation: sharePopIn var(--dur) var(--ease);
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: 44px;
+  padding-inline: var(--sp-3);
+  border-radius: var(--r-sm);
+  background-color: transparent;
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.action svg {
+  flex: none;
+  color: var(--ink-400);
+}
+
+.action .whats {
+  color: var(--whats-600);
+}
+
+.action .done {
+  color: var(--success-600);
+}
+
+@media (hover: hover) {
+  .action:hover {
+    background-color: var(--bg-alt);
+  }
+
+  .action:hover svg {
+    color: var(--brand-600);
+  }
+
+  .action:hover .whats {
+    color: var(--whats-600);
+  }
+
+  .action:hover .done {
+    color: var(--success-600);
+  }
+}
+
+@keyframes sharePopIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .action {
+    transition: none;
+  }
+
+  .popover {
+    animation: none;
+  }
+}
+
+/* A partir do tablet o popover ganha largura confortavel. */
+@media (min-width: 640px) {
+  .popover {
+    min-width: 236px;
+    max-width: none;
+  }
+}

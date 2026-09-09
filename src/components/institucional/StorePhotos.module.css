@@ -1,0 +1,255 @@
+/* Galeria da loja: carrossel no celular, mosaico assimetrico do tablet em diante. */
+
+.section {
+  background-color: var(--bg);
+}
+
+/* ---- Celular: carrossel com scroll-snap ---- */
+.mosaic {
+  display: flex;
+  gap: var(--sp-3);
+  margin-top: var(--sp-8);
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  padding-bottom: var(--sp-3);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--gutter);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.tile {
+  position: relative;
+  flex: 0 0 82%;
+  scroll-snap-align: start;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background-color: var(--bg-alt);
+  box-shadow: var(--sh-sm);
+  transition: box-shadow var(--dur) var(--ease);
+}
+
+.tile:hover {
+  box-shadow: var(--sh-md);
+}
+
+.tileButton {
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
+}
+
+.tileImage {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+.tileButton:hover .tileImage,
+.tileButton:focus-visible .tileImage {
+  transform: scale(1.04);
+}
+
+/* Legenda: sempre visivel no toque, sobe no hover do desktop. */
+.tileCaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-5) var(--sp-4) var(--sp-4);
+  /* veu escuro para o texto sobreviver a qualquer foto */
+  background-image: linear-gradient(to top, rgba(12, 15, 17, 0.88), rgba(12, 15, 17, 0));
+  color: var(--dark-text);
+  text-align: left;
+}
+
+.tileCaptionText {
+  flex: 1;
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  line-height: var(--lh-normal);
+}
+
+.tileCaptionIcon {
+  flex: none;
+  color: var(--brand-300);
+}
+
+/* ---- Lightbox ---- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  /* fundo escuro para a foto ficar isolada */
+  background-color: rgba(8, 10, 11, 0.94);
+  color: var(--dark-text);
+}
+
+.lightboxBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex: none;
+}
+
+.counter {
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-300);
+}
+
+.lightboxClose,
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 1px solid var(--dark-line);
+  border-radius: var(--r-md);
+  background-color: rgba(20, 24, 27, 0.9);
+  color: var(--dark-text);
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.lightboxClose:hover,
+.arrow:hover {
+  background-color: var(--ink-700);
+  border-color: var(--dark-line-strong);
+}
+
+.lightboxStage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex: 1;
+  min-height: 0;
+}
+
+/* No celular as setas descem para uma faixa propria, sob a foto. */
+.arrowPrev,
+.arrowNext {
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+}
+
+.arrowPrev {
+  left: 0;
+}
+
+.arrowNext {
+  right: 0;
+}
+
+.lightboxFigure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding-bottom: 56px;
+}
+
+.lightboxImageWrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.lightboxImage {
+  object-fit: contain;
+}
+
+.lightboxCaption {
+  flex: none;
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--ink-300);
+  text-align: center;
+}
+
+/* ---- Refinos ---- */
+@media (min-width: 768px) {
+  .mosaic {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: clamp(150px, 16vw, 215px);
+    gap: var(--sp-4);
+    margin-inline: 0;
+    padding-inline: 0;
+    padding-bottom: 0;
+    overflow: visible;
+  }
+
+  .tile {
+    aspect-ratio: auto;
+  }
+
+  .tileFeatured {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .tileCaption {
+    transform: translateY(101%);
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .tileButton:hover .tileCaption,
+  .tileButton:focus-visible .tileCaption {
+    transform: translateY(0);
+  }
+
+  .lightbox {
+    padding: var(--sp-6) var(--sp-7) var(--sp-7);
+    gap: var(--sp-4);
+  }
+
+  .lightboxStage {
+    gap: var(--sp-5);
+  }
+
+  .arrowPrev,
+  .arrowNext {
+    position: static;
+  }
+
+  .lightboxFigure {
+    padding-bottom: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mosaic {
+    gap: var(--sp-5);
+    margin-top: var(--sp-9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tileCaption {
+    transform: none;
+  }
+}

@@ -1,0 +1,194 @@
+/* Formulario de interesse - o mesmo layout serve na pagina e dentro do Modal. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.compact {
+  gap: var(--sp-4);
+}
+
+.statusWrap {
+  outline: none;
+}
+
+/* ---- Resumo do veiculo escolhido ---- */
+.summary {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+}
+
+.summaryPhoto {
+  position: relative;
+  flex: none;
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background-color: var(--bg-alt);
+}
+
+.summaryImage {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+.summary:hover .summaryImage {
+  transform: scale(1.04);
+}
+
+.summaryText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.summaryLabel {
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.summaryTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--lh-snug);
+  color: var(--text);
+}
+
+.summaryPrice {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--brand-600);
+}
+
+/* ---- Campos ---- */
+.grid {
+  display: grid;
+  gap: var(--sp-4);
+}
+
+/* ---- Preferencia de contato ---- */
+.fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.legend {
+  padding: 0;
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.channels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(102px, 1fr));
+  gap: var(--sp-2);
+}
+
+.channel {
+  display: block;
+  min-width: 0;
+}
+
+.channelInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.channelBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: 48px;
+  padding-inline: var(--sp-3);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+.channelIcon {
+  flex: none;
+  color: var(--text-subtle);
+  transition: color var(--dur) var(--ease);
+}
+
+.channelBox:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.channelInput:checked + .channelBox {
+  border-color: var(--ink-900);
+  background-color: var(--ink-900);
+  color: var(--bone-50);
+  box-shadow: var(--sh-sm);
+}
+
+.channelInput:checked + .channelBox .channelIcon {
+  color: var(--brand-400);
+}
+
+.channelInput:focus-visible + .channelBox {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+}
+
+/* ---- Envio ---- */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-4);
+  }
+
+  .channelBox {
+    font-size: var(--fs-sm);
+  }
+}
+
+@media (min-width: 768px) {
+  .summary {
+    padding: var(--sp-4);
+  }
+
+  .summaryTitle {
+    font-size: var(--fs-lg);
+  }
+}

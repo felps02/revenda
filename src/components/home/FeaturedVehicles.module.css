@@ -1,0 +1,81 @@
+/* A classe dobrada (.rail.rail) garante prioridade sobre o layout padrão da
+   VehicleGrid, que recebe esta classe no mesmo elemento. */
+
+.section {
+  background-color: var(--bg);
+}
+
+.rail.rail {
+  display: flex;
+  gap: var(--sp-4);
+  /* Sangra até a borda da tela para o carrossel não parecer cortado. */
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  padding-bottom: var(--sp-3);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.rail.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.rail.rail > * {
+  flex: 0 0 82vw;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.hint {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: var(--sp-4) 0 0;
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.hintIcon {
+  flex: none;
+  color: var(--brand-500);
+}
+
+@media (min-width: 640px) {
+  .rail.rail > * {
+    flex-basis: 54vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .rail.rail {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-5);
+    margin-inline: 0;
+    padding-inline: 0;
+    padding-bottom: 0;
+    overflow: visible;
+  }
+
+  .rail.rail > * {
+    flex-basis: auto;
+  }
+
+  .hint {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rail.rail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-6);
+  }
+}

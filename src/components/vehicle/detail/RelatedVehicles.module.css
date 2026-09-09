@@ -1,0 +1,16 @@
+/* Faixa de veículos parecidos, fechando a página do anúncio. */
+
+.root {
+  border-top: 1px solid var(--line);
+  background-color: var(--bg-alt);
+}
+
+.grid {
+  margin-top: var(--sp-6);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    margin-top: var(--sp-7);
+  }
+}

@@ -1,0 +1,156 @@
+/* Faixa escura de troca: foto de fundo no celular, metade direita no desktop. */
+
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+  padding-block: clamp(3.5rem, 9vw, 6.5rem);
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.photo {
+  object-fit: cover;
+  object-position: center;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(12, 15, 17, 0.9) 0%,
+    rgba(12, 15, 17, 0.8) 50%,
+    rgba(12, 15, 17, 0.94) 100%
+  );
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  max-width: 34rem;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--fs-h2);
+  line-height: 1.06;
+  letter-spacing: var(--tracking-tighter);
+  color: var(--dark-text);
+  text-wrap: balance;
+}
+
+.text {
+  margin: 0;
+  max-width: 46ch;
+  font-size: var(--fs-md);
+  line-height: var(--lh-relaxed);
+  color: var(--ink-200);
+}
+
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin: var(--sp-1) 0 0;
+}
+
+.bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--dark-text);
+}
+
+.bulletIcon {
+  flex: none;
+  margin-top: 2px;
+  color: var(--brand-400);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  width: 100%;
+  max-width: 22rem;
+  margin-top: var(--sp-3);
+}
+
+.actions > * {
+  width: 100%;
+}
+
+.note {
+  margin: 0;
+  font-size: var(--fs-2xs);
+  color: var(--ink-300);
+}
+
+@media (min-width: 640px) {
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: none;
+  }
+
+  .actions > * {
+    width: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-block: clamp(5rem, 8vw, 7.5rem);
+  }
+
+  /* A foto passa a ocupar só a metade direita da faixa. */
+  .media {
+    left: 50%;
+  }
+
+  .scrim {
+    background-image: linear-gradient(
+      to right,
+      rgba(12, 15, 17, 1) 0%,
+      rgba(12, 15, 17, 0.55) 28%,
+      rgba(12, 15, 17, 0.15) 70%,
+      rgba(12, 15, 17, 0.35) 100%
+    );
+  }
+
+  .content {
+    max-width: 30rem;
+    gap: var(--sp-5);
+  }
+
+  .text {
+    font-size: var(--fs-lg);
+  }
+
+  .bullet {
+    font-size: var(--fs-md);
+  }
+}
+
+@media (min-width: 1280px) {
+  .content {
+    max-width: 34rem;
+  }
+}

@@ -1,0 +1,103 @@
+/* Favoritar: circulo translucido sobre a foto (floating) ou botao com
+   rotulo dentro do conteudo (inline). */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  flex: none;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.icon {
+  display: inline-flex;
+  flex: none;
+}
+
+.label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* ---- Sobre a foto ---- */
+.floating {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--dark-line-strong);
+  border-radius: var(--r-pill);
+  /* veu escuro sobre a foto: unica excecao permitida ao uso de tokens */
+  background-color: rgba(12, 15, 17, 0.42);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--bone-50);
+}
+
+@media (hover: hover) {
+  .floating:hover {
+    background-color: rgba(12, 15, 17, 0.68);
+    border-color: var(--bone-300);
+  }
+}
+
+.floating.active {
+  color: var(--brand-400);
+}
+
+/* ---- Dentro do conteudo ---- */
+.inline {
+  min-width: 44px;
+  min-height: 44px;
+  padding-inline: var(--sp-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+@media (hover: hover) {
+  .inline:hover {
+    border-color: var(--ink-900);
+    box-shadow: var(--sh-sm);
+  }
+}
+
+.inline.active {
+  border-color: var(--brand-500);
+  background-color: var(--brand-50);
+  color: var(--brand-700);
+}
+
+/* ---- Coracao enchendo ---- */
+@keyframes heartBump {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.28);
+  }
+  70% {
+    transform: scale(0.94);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bump {
+  animation: heartBump calc(var(--dur) * 1.25) var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transition: none;
+  }
+
+  .bump {
+    animation: none;
+  }
+}

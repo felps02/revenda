@@ -1,0 +1,349 @@
+/* Card do anuncio: foto 4/3, selos, ficha curta, preco e acao.
+   Altura uniforme na grade - o miolo cresce e o rodape encosta na base. */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+  overflow: hidden;
+  transition: box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.card:focus-within {
+  border-color: var(--line-strong);
+  box-shadow: var(--sh-md);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: var(--line-strong);
+    box-shadow: var(--sh-md);
+  }
+}
+
+/* =========================================================================
+   Foto
+   ========================================================================= */
+.media {
+  position: relative;
+  flex: none;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: var(--bone-100);
+}
+
+.photo,
+.photoHover {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease), opacity var(--dur-slow) var(--ease),
+    filter var(--dur) var(--ease);
+}
+
+/* Segunda foto do anuncio: entra em cross-fade por cima da capa. */
+.photoHover {
+  opacity: 0;
+}
+
+@media (hover: hover) {
+  .card:hover .photo {
+    transform: scale(1.04);
+  }
+
+  .card:hover .photoHover {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+.noPhoto {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-300);
+}
+
+/* ---- Selos sobre a foto ---- */
+.flags {
+  position: absolute;
+  top: var(--sp-3);
+  left: var(--sp-3);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  max-width: calc(100% - 76px);
+  /* decorativos: o clique atravessa e chega no link do card */
+  pointer-events: none;
+}
+
+.flag {
+  box-shadow: var(--sh-sm);
+}
+
+.favorite {
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  z-index: 3;
+}
+
+/* ---- Contador de fotos ---- */
+.photoCount {
+  position: absolute;
+  right: var(--sp-3);
+  bottom: var(--sp-3);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  height: 26px;
+  padding-inline: var(--sp-2);
+  border-radius: var(--r-pill);
+  /* veu escuro sobre a foto: unica excecao permitida ao uso de tokens */
+  background-color: rgba(12, 15, 17, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--bone-50);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ---- Vendido ---- */
+.mediaSold .photo {
+  filter: grayscale(1) brightness(0.94);
+}
+
+.card:hover .mediaSold .photo {
+  transform: none;
+}
+
+.soldTag {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+  padding-block: var(--sp-2);
+  pointer-events: none;
+  background-color: rgba(12, 15, 17, 0.78);
+  color: var(--bone-50);
+  font-size: var(--fs-3xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  line-height: 1.4;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* =========================================================================
+   Corpo
+   ========================================================================= */
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-5);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.2;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* O link do titulo cobre o card inteiro sem aninhar links. */
+.titleLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.card:hover .titleLink {
+  color: var(--brand-700);
+}
+
+.version {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---- Ficha curta ---- */
+.specs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-1) var(--sp-2);
+  margin-top: var(--sp-1);
+  font-size: var(--fs-2xs);
+  color: var(--ink-500);
+}
+
+.spec {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.spec svg {
+  flex: none;
+  color: var(--ink-300);
+}
+
+.spec + .spec::before {
+  content: "·";
+  margin-inline-end: var(--sp-1);
+  color: var(--ink-200);
+}
+
+/* ---- Preco ---- */
+.priceBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-1);
+  margin-top: var(--sp-3);
+}
+
+.priceRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+
+.price {
+  font-family: var(--font-display);
+  /* um degrau acima do h4: o preco e a informacao que fecha a venda */
+  font-size: calc(var(--fs-h4) * 1.08);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.05;
+  color: var(--ink-900);
+}
+
+.priceOld {
+  font-size: var(--fs-sm);
+  color: var(--text-subtle);
+  text-decoration: line-through;
+}
+
+.discount {
+  margin-top: var(--sp-1);
+}
+
+.financing {
+  margin-top: var(--sp-1);
+  font-size: var(--fs-2xs);
+  color: var(--text-muted);
+}
+
+.installment {
+  font-weight: 600;
+  color: var(--ink-600);
+}
+
+/* ---- Rodape ---- */
+.footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: stretch;
+  gap: var(--sp-2);
+  margin-top: auto;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+}
+
+.detail {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Botao do WhatsApp so com icone: quadrado, alvo de toque de 46px. */
+.footer .whats {
+  --btn-px: 0;
+  flex: none;
+  gap: 0;
+  width: 46px;
+  min-width: 46px;
+}
+
+/* =========================================================================
+   Variante compacta (carrossel de relacionados, colunas estreitas)
+   ========================================================================= */
+.compact .body {
+  gap: var(--sp-1);
+  padding: var(--sp-4);
+}
+
+.compact .price {
+  font-size: var(--fs-h4);
+}
+
+.compact .financing {
+  display: none;
+}
+
+.compact .footer {
+  padding-top: var(--sp-3);
+}
+
+/* =========================================================================
+   Refinos por largura
+   ========================================================================= */
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--fs-xl);
+  }
+
+  .body {
+    padding: var(--sp-5) var(--sp-5) var(--sp-6);
+  }
+
+  .compact .title {
+    font-size: var(--fs-lg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .photo,
+  .photoHover {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  .card:hover .photo,
+  .card:hover .photoHover {
+    transform: none;
+  }
+}

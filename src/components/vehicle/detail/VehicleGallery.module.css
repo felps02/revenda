@@ -1,0 +1,444 @@
+/* Galeria do veículo: foto grande, miniaturas e lightbox em tela cheia. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* ---- Foto principal ---- */
+.frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background-color: var(--ink-800);
+  box-shadow: var(--sh-sm);
+  touch-action: pan-y;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  border-radius: inherit;
+  cursor: zoom-in;
+}
+
+.photo {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+.expandHint {
+  position: absolute;
+  top: var(--sp-3);
+  inset-inline-end: var(--sp-3);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-md);
+  /* Véu escuro sobre a foto - único rgba solto permitido. */
+  background-color: rgba(12, 15, 17, 0.55);
+  color: var(--bone-50);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-pill);
+  background-color: rgba(12, 15, 17, 0.55);
+  color: var(--bone-50);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transform: translateY(-50%);
+  transition: background-color var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+
+.navPrev {
+  inset-inline-start: var(--sp-3);
+}
+
+.navNext {
+  inset-inline-end: var(--sp-3);
+}
+
+.nav:hover {
+  background-color: var(--ink-900);
+}
+
+.captionBar {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-6) var(--sp-4) var(--sp-3);
+  background-image: linear-gradient(to top, rgba(12, 15, 17, 0.72), rgba(12, 15, 17, 0));
+  color: var(--bone-50);
+  pointer-events: none;
+}
+
+.caption {
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  line-height: var(--lh-normal);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.counter {
+  flex: none;
+  padding: 5px var(--sp-3);
+  border-radius: var(--r-pill);
+  background-color: rgba(12, 15, 17, 0.62);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Miniaturas ---- */
+.thumb {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background-color: var(--bg-alt);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.thumbPhoto {
+  object-fit: cover;
+  opacity: 0.82;
+  transition: transform var(--dur-slow) var(--ease), opacity var(--dur) var(--ease);
+}
+
+.thumb:hover .thumbPhoto,
+.thumb:focus-visible .thumbPhoto {
+  opacity: 1;
+}
+
+.thumbActive {
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 1px var(--brand-500);
+}
+
+.thumbActive .thumbPhoto {
+  opacity: 1;
+}
+
+.more {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-1);
+  background-color: rgba(12, 15, 17, 0.66);
+  color: var(--bone-50);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.thumb:hover .more {
+  background-color: rgba(12, 15, 17, 0.78);
+}
+
+/* Faixa rolável (celular) */
+.strip {
+  position: relative;
+  display: flex;
+  gap: var(--sp-2);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.strip::-webkit-scrollbar {
+  display: none;
+}
+
+.stripThumb {
+  flex: 0 0 96px;
+  scroll-snap-align: center;
+}
+
+/* Grade fixa (tablet e desktop) */
+.grid {
+  display: none;
+}
+
+/* ---- Lightbox ---- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  flex-direction: column;
+  /* Quase preto para a foto dominar a tela. */
+  background-color: rgba(8, 10, 11, 0.97);
+  color: var(--dark-text);
+  outline: none;
+  touch-action: pan-y;
+  animation: galleryFade var(--dur) var(--ease) both;
+}
+
+/* Só os controles recebem clique: no resto, o clique fecha o lightbox. */
+.lightbox > * {
+  pointer-events: none;
+}
+
+.lightboxTop {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  padding-top: calc(var(--sp-3) + env(safe-area-inset-top, 0px));
+}
+
+.lightboxCounter {
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--ink-200);
+}
+
+.lightboxClose {
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--dark-line);
+  border-radius: var(--r-pill);
+  color: var(--dark-text);
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.lightboxClose:hover {
+  background-color: var(--ink-800);
+  border-color: var(--dark-line-strong);
+}
+
+.lightboxStage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.lightboxPhotoWrap {
+  position: absolute;
+  inset: 0 var(--sp-3);
+}
+
+.lightboxPhoto {
+  object-fit: contain;
+}
+
+.lightboxNav {
+  pointer-events: auto;
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--dark-line);
+  border-radius: var(--r-pill);
+  background-color: rgba(12, 15, 17, 0.6);
+  color: var(--dark-text);
+  transform: translateY(-50%);
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.lightboxNav:hover {
+  background-color: var(--ink-800);
+  border-color: var(--dark-line-strong);
+}
+
+.lightboxFoot {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4) calc(var(--sp-4) + env(safe-area-inset-bottom, 0px));
+}
+
+.lightboxCaption {
+  margin: 0;
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--ink-200);
+}
+
+.lightboxStrip {
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--sp-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.lightboxStrip::-webkit-scrollbar {
+  display: none;
+}
+
+.lightboxThumb {
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 68px;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  border: 1px solid var(--dark-line);
+  border-radius: var(--r-sm);
+  background-color: var(--ink-800);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.lightboxThumbActive {
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 1px var(--brand-500);
+}
+
+.lightboxThumbActive .thumbPhoto {
+  opacity: 1;
+}
+
+/* ---- Refinos por largura ---- */
+@media (min-width: 768px) {
+  .frame {
+    aspect-ratio: 16 / 10;
+  }
+
+  .strip {
+    display: none;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--sp-2);
+  }
+
+  .captionBar {
+    padding: var(--sp-7) var(--sp-5) var(--sp-4);
+  }
+
+  .caption {
+    font-size: var(--fs-xs);
+  }
+
+  .lightboxStrip {
+    justify-content: center;
+  }
+
+  .lightboxThumb {
+    flex: 0 0 84px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .root {
+    gap: var(--sp-4);
+  }
+
+  .grid {
+    gap: var(--sp-3);
+  }
+
+  .lightboxTop {
+    padding-inline: var(--sp-6);
+  }
+
+  .lightboxPhotoWrap {
+    inset: var(--sp-2) 84px;
+  }
+
+  .navPrev {
+    inset-inline-start: var(--sp-5);
+  }
+
+  .navNext {
+    inset-inline-end: var(--sp-5);
+  }
+
+  .lightboxFoot {
+    padding-inline: var(--sp-6);
+  }
+}
+
+/* Zoom e setas só onde existe ponteiro de verdade. */
+@media (hover: hover) and (min-width: 1024px) {
+  .frame:hover .photo {
+    transform: scale(1.04);
+  }
+
+  .thumb:hover .thumbPhoto {
+    transform: scale(1.04);
+  }
+
+  .nav {
+    opacity: 0;
+  }
+
+  .frame:hover .nav,
+  .nav:focus-visible {
+    opacity: 1;
+  }
+
+  .frame:hover .expandHint {
+    background-color: var(--ink-900);
+  }
+}
+
+@keyframes galleryFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo,
+  .thumbPhoto {
+    transition: none;
+  }
+
+  .frame:hover .photo,
+  .thumb:hover .thumbPhoto {
+    transform: none;
+  }
+}

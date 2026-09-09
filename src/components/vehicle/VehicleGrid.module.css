@@ -1,0 +1,101 @@
+/* Grade da vitrine + estado vazio. */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-5);
+}
+
+.item {
+  display: flex;
+  min-width: 0;
+}
+
+.item > * {
+  width: 100%;
+}
+
+/* =========================================================================
+   Estado vazio
+   ========================================================================= */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-8) var(--sp-5);
+  background-color: var(--surface);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-lg);
+  text-align: center;
+}
+
+.emptyIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  flex: none;
+  border-radius: var(--r-pill);
+  background-color: var(--bg-alt);
+  color: var(--brand-600);
+}
+
+.emptyTitle {
+  font-size: var(--fs-h4);
+  letter-spacing: var(--tracking-tight);
+}
+
+.emptyText {
+  max-width: 48ch;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+}
+
+.emptyActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  width: 100%;
+  max-width: 320px;
+  margin-top: var(--sp-1);
+}
+
+/* =========================================================================
+   Colunas
+   ========================================================================= */
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .empty {
+    padding: var(--sp-10) var(--sp-7);
+  }
+
+  .emptyActions {
+    flex-direction: row;
+    justify-content: center;
+    width: auto;
+    max-width: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    gap: var(--sp-6);
+  }
+
+  .cols3,
+  .cols4 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .cols4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

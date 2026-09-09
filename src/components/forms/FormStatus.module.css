@@ -1,0 +1,199 @@
+/* Cartao de retorno do formulario: sucesso em verde claro, falha em vermelho suave. */
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+  animation: statusIn var(--dur-slow) var(--ease-out) both;
+}
+
+.success {
+  border-color: var(--success-100);
+}
+
+.error {
+  border-color: var(--danger-100);
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--r-pill);
+}
+
+.success .mark {
+  background-color: var(--success-100);
+  color: var(--success-600);
+}
+
+.error .mark {
+  background-color: var(--danger-100);
+  color: var(--danger-600);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--lh-snug);
+  color: var(--text);
+}
+
+.text {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: var(--sp-1) 0 0;
+}
+
+.metaLabel {
+  font-size: var(--fs-3xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.protocol {
+  padding: 2px var(--sp-2);
+  background-color: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.deadline {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+}
+
+/* ---- Enviando ---- */
+.loading {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin: 0;
+  padding: var(--sp-4) var(--sp-5);
+  background-color: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.spinner {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--brand-500);
+  border-top-color: transparent;
+  border-radius: var(--r-pill);
+  animation: statusSpin 620ms linear infinite;
+}
+
+/* ---- Atalho de WhatsApp abaixo do botao ---- */
+.hint {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.hintLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-weight: 600;
+  color: var(--whats-700);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur) var(--ease);
+}
+
+.hintLink:hover {
+  color: var(--whats-600);
+}
+
+.hintIcon {
+  flex: none;
+}
+
+:global(.band-dark) .hint {
+  color: var(--dark-text-muted);
+}
+
+:global(.band-dark) .hintLink {
+  color: var(--whats-500);
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: var(--sp-6);
+    gap: var(--sp-5);
+  }
+}
+
+@keyframes statusIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes statusSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+  .spinner {
+    animation: none;
+    border-top-color: var(--brand-500);
+    opacity: 0.5;
+  }
+}

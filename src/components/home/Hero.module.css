@@ -1,0 +1,244 @@
+/* Hero da home: foto sangrando na tela, texto ancorado no canto inferior
+   esquerdo. Sem overflow:hidden aqui - o painel de busca rápida encosta na
+   borda de baixo e não pode ser recortado. */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(560px, 88vh, 780px);
+  min-height: clamp(560px, 88svh, 780px);
+  padding-top: calc(var(--header-h) + var(--sp-7));
+  padding-bottom: clamp(4rem, 15vw, 6.5rem);
+  background-color: var(--ink-900);
+  color: var(--dark-text);
+}
+
+/* ---- Foto e véus ---- */
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.photo {
+  object-fit: cover;
+  object-position: 62% 50%;
+}
+
+/* Camada 1: escurece o lado do texto (no celular, o topo e a base). */
+.scrim {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(12, 15, 17, 0.82) 0%,
+    rgba(12, 15, 17, 0.55) 42%,
+    rgba(12, 15, 17, 0.88) 100%
+  );
+}
+
+/* Camada 2: vinheta inferior, para o texto e a faixa de provas colarem no chão. */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    to top,
+    rgba(12, 15, 17, 0.9) 0%,
+    rgba(12, 15, 17, 0.35) 26%,
+    rgba(12, 15, 17, 0) 55%
+  );
+}
+
+/* ---- Conteúdo ---- */
+.inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-5);
+}
+
+.eyebrow {
+  color: var(--brand-400);
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  max-width: 15ch;
+  font-size: var(--fs-display);
+  line-height: 0.98;
+  letter-spacing: var(--tracking-tighter);
+  color: var(--dark-text);
+  text-wrap: balance;
+}
+
+.titleLine {
+  display: block;
+}
+
+.titleAccent {
+  display: block;
+  color: var(--brand-400);
+}
+
+.text {
+  max-width: 46ch;
+  font-size: var(--fs-md);
+  line-height: var(--lh-relaxed);
+  color: var(--ink-200);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sp-3);
+  width: 100%;
+  max-width: 22rem;
+  margin-top: var(--sp-1);
+}
+
+.actions > * {
+  width: 100%;
+}
+
+/* ---- Provas ---- */
+.proof {
+  display: flex;
+  align-items: stretch;
+  gap: var(--sp-4);
+  width: 100%;
+  max-width: 34rem;
+  margin: 0;
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--dark-line);
+}
+
+.proofItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.proofItem + .proofItem {
+  padding-left: var(--sp-4);
+  border-left: 1px solid var(--dark-line);
+}
+
+.proofValue {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--dark-text);
+}
+
+.proofStar {
+  flex: none;
+  color: var(--brand-400);
+}
+
+.proofLabel {
+  font-size: var(--fs-2xs);
+  line-height: 1.35;
+  color: var(--ink-300);
+}
+
+/* ---- Refinos ---- */
+@media (min-width: 640px) {
+  .actions {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: none;
+  }
+
+  .actions > * {
+    width: auto;
+  }
+
+  .proofLabel {
+    font-size: var(--fs-xs);
+  }
+}
+
+@media (min-width: 768px) {
+  .hero {
+    min-height: clamp(600px, 92vh, 860px);
+    min-height: clamp(600px, 92svh, 860px);
+    padding-bottom: clamp(5.5rem, 12vw, 8rem);
+  }
+
+  /* Na horizontal o véu passa a vir da esquerda, liberando a foto à direita. */
+  .scrim {
+    background-image: linear-gradient(
+      to right,
+      rgba(12, 15, 17, 0.92) 0%,
+      rgba(12, 15, 17, 0.74) 34%,
+      rgba(12, 15, 17, 0.34) 62%,
+      rgba(12, 15, 17, 0.1) 100%
+    );
+  }
+
+  .vignette {
+    background-image: linear-gradient(
+      to top,
+      rgba(12, 15, 17, 0.82) 0%,
+      rgba(12, 15, 17, 0.28) 30%,
+      rgba(12, 15, 17, 0) 58%
+    );
+  }
+
+  .inner {
+    gap: var(--sp-6);
+  }
+
+  .text {
+    font-size: var(--fs-lg);
+  }
+
+  .proofValue {
+    font-size: var(--fs-h3);
+  }
+}
+
+@media (min-width: 1024px) {
+  .photo {
+    object-position: 70% 50%;
+  }
+
+  .title {
+    max-width: 13ch;
+  }
+
+  .text {
+    font-size: var(--fs-xl);
+  }
+
+  .proof {
+    gap: var(--sp-6);
+  }
+
+  .proofItem + .proofItem {
+    padding-left: var(--sp-6);
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero {
+    padding-bottom: clamp(6.5rem, 10vw, 9rem);
+  }
+}

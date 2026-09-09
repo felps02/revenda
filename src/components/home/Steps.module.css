@@ -1,0 +1,144 @@
+/* Passos com o número grande em bronze translúcido atrás do título e, no
+   desktop, uma linha fina ligando os quatro. */
+
+.section {
+  background-color: var(--bg);
+}
+
+.list {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-7);
+  margin: 0;
+}
+
+.item {
+  position: relative;
+  padding-top: var(--sp-7);
+}
+
+.number {
+  position: absolute;
+  top: -0.15em;
+  left: -0.04em;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 13vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--tracking-tighter);
+  color: var(--brand-500);
+  opacity: 0.18;
+  pointer-events: none;
+  user-select: none;
+}
+
+.title {
+  position: relative;
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text);
+  text-wrap: balance;
+}
+
+.text {
+  position: relative;
+  margin: 0;
+  max-width: 42ch;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+}
+
+/* ---- CTA final ---- */
+.cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-7);
+  border-top: 1px solid var(--line);
+}
+
+.ctaText {
+  margin: 0;
+  max-width: 52ch;
+  font-size: var(--fs-md);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+}
+
+.ctaActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  width: 100%;
+  max-width: 22rem;
+}
+
+.ctaActions > * {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .ctaActions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: none;
+  }
+
+  .ctaActions > * {
+    width: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-8) var(--sp-7);
+  }
+
+  .cta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-7);
+  }
+
+  .ctaActions {
+    flex: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--sp-6);
+  }
+
+  /* Linha que costura os quatro passos, na altura dos números. */
+  .list::before {
+    content: "";
+    position: absolute;
+    top: 1.9rem;
+    left: 6%;
+    right: 6%;
+    height: 1px;
+    background-color: var(--line-strong);
+    pointer-events: none;
+  }
+
+  .item {
+    padding-top: var(--sp-8);
+  }
+
+  .number {
+    font-size: 4.5rem;
+  }
+
+  .title {
+    font-size: var(--fs-xl);
+  }
+}
