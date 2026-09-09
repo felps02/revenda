@@ -172,7 +172,8 @@ export function SelectInput({
 }
 
 export interface CheckboxProps extends Omit<ComponentPropsWithRef<"input">, "type"> {
-  label: ReactNode;
+  /** Texto ao lado da marca. Tambem aceito como children. */
+  label?: ReactNode;
   hint?: string;
   invalid?: boolean;
 }
@@ -182,6 +183,7 @@ export function Checkbox({
   hint,
   invalid,
   className,
+  children,
   "aria-invalid": ariaInvalid,
   ...rest
 }: CheckboxProps) {
@@ -205,7 +207,7 @@ export function Checkbox({
         </svg>
       </span>
       <span className={styles.checkboxText}>
-        <span>{label}</span>
+        <span>{label ?? children}</span>
         {hint ? <span className={styles.checkboxHint}>{hint}</span> : null}
       </span>
     </label>

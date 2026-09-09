@@ -1,0 +1,80 @@
+.pageHeader {
+  padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 2.5rem));
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--line);
+}
+
+.title {
+  margin-top: var(--sp-4);
+  font-size: var(--fs-h2);
+}
+
+.subtitle {
+  margin-top: var(--sp-3);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+.layout {
+  display: grid;
+  gap: var(--sp-6);
+  padding-top: clamp(1.5rem, 4vw, 2.5rem);
+  padding-bottom: var(--section-y);
+  align-items: start;
+}
+
+.sidebar {
+  min-width: 0;
+}
+
+.content {
+  min-width: 0;
+  display: grid;
+  gap: var(--sp-5);
+  align-content: start;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Esqueleto do loading.tsx */
+.loadingGrid {
+  display: grid;
+  gap: var(--sp-6);
+  margin-top: var(--sp-8);
+  grid-template-columns: 1fr;
+}
+
+.loadingCard {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+
+@media (min-width: 640px) {
+  .loadingGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: 296px minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.75rem);
+  }
+
+  .sidebar {
+    position: sticky;
+    top: calc(var(--header-h) + var(--sp-4));
+  }
+
+  .loadingGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
