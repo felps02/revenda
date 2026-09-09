@@ -1,0 +1,37 @@
+.skeleton {
+  display: block;
+  flex: none;
+  background-color: var(--bone-100);
+  background-image: linear-gradient(
+    90deg,
+    var(--bone-100) 0%,
+    var(--bone-200) 45%,
+    var(--bone-100) 90%
+  );
+  background-size: 260% 100%;
+  background-position: 140% 0;
+  animation: skeletonShimmer 1500ms var(--ease) infinite;
+}
+
+@keyframes skeletonShimmer {
+  to {
+    background-position: -60% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background-image: none;
+  }
+}
+
+:global(.band-dark) .skeleton {
+  background-color: var(--dark-surface-2);
+  background-image: linear-gradient(
+    90deg,
+    var(--dark-surface-2) 0%,
+    var(--ink-600) 45%,
+    var(--dark-surface-2) 90%
+  );
+}
