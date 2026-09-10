@@ -1,5 +1,5 @@
 .header {
-  padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 2.5rem));
+  padding-top: calc(var(--header-h) + clamp(0.5rem, 3vw, 2.5rem));
   padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
   background: var(--bg-alt);
   border-bottom: 1px solid var(--line);

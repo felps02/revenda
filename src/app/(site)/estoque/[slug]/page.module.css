@@ -1,5 +1,5 @@
 .top {
-  padding-top: calc(var(--header-h) + clamp(1rem, 3vw, 2rem));
+  padding-top: calc(var(--header-h) + clamp(0.5rem, 2.5vw, 2rem));
   padding-bottom: clamp(1rem, 2vw, 1.5rem);
 }
 

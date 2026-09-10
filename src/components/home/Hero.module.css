@@ -10,7 +10,9 @@
   min-height: clamp(560px, 88vh, 780px);
   min-height: clamp(560px, 88svh, 780px);
   padding-top: calc(var(--header-h) + var(--sp-7));
-  padding-bottom: clamp(4rem, 15vw, 6.5rem);
+  /* No celular a barra fixa de WhatsApp/Ligar ocupa ~76px do rodapé: a faixa
+     de provas precisa terminar acima dela. */
+  padding-bottom: calc(clamp(4rem, 15vw, 6.5rem) + 76px);
   background-color: var(--ink-900);
   color: var(--dark-text);
 }
@@ -34,9 +36,9 @@
   inset: 0;
   background-image: linear-gradient(
     to bottom,
-    rgba(12, 15, 17, 0.82) 0%,
-    rgba(12, 15, 17, 0.55) 42%,
-    rgba(12, 15, 17, 0.88) 100%
+    rgba(12, 15, 17, 0.8) 0%,
+    rgba(12, 15, 17, 0.34) 46%,
+    rgba(12, 15, 17, 0.78) 100%
   );
 }
 
@@ -46,9 +48,9 @@
   inset: 0;
   background-image: linear-gradient(
     to top,
-    rgba(12, 15, 17, 0.9) 0%,
-    rgba(12, 15, 17, 0.35) 26%,
-    rgba(12, 15, 17, 0) 55%
+    rgba(12, 15, 17, 0.88) 0%,
+    rgba(12, 15, 17, 0.22) 30%,
+    rgba(12, 15, 17, 0) 58%
   );
 }
 

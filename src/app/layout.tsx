@@ -40,6 +40,16 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={`${sora.variable} ${inter.variable}`}>
+      <head>
+        {/*
+          Marca que o JavaScript está ativo antes da primeira pintura. As
+          animações de entrada só escondem conteúdo quando esta marca existe —
+          se o script falhar em algum aparelho, a página aparece inteira.
+        */}
+        <script
+          dangerouslySetInnerHTML={{ __html: `document.documentElement.dataset.js="on"` }}
+        />
+      </head>
       <body>
         {children}
         <script

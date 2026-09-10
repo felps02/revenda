@@ -9,3 +9,6 @@ data/
 public/veiculos/
 .env.local
 dev.log
+screenshots/
+prod.log
+build*.log

@@ -17,6 +17,11 @@ html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-h) + 16px);
+  /* A gaveta do menu fica estacionada fora da tela quando fechada. No Safari
+     isso ainda conta como área rolável, criando um deslize lateral indesejado.
+     `clip` corta sem criar contexto de rolagem, então o `position: sticky`
+     dos filtros e da caixa de preço continua funcionando. */
+  overflow-x: clip;
 }
 
 body {
@@ -243,7 +248,9 @@ ol {
 /* =========================================================================
    Animacao de entrada (microinteracao sutil, usada via data-reveal)
    ========================================================================= */
-[data-reveal] {
+/* Só esconde quando o JS estiver ativo (o <html> ganha data-js="on" antes da
+   primeira pintura). Sem JS, ou se ele falhar, o conteúdo aparece normalmente. */
+[data-js="on"] [data-reveal] {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
@@ -251,7 +258,7 @@ ol {
   will-change: opacity, transform;
 }
 
-[data-reveal="in"] {
+[data-js="on"] [data-reveal="in"] {
   opacity: 1;
   transform: none;
 }
@@ -268,7 +275,7 @@ ol {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  [data-reveal] {
+  [data-js="on"] [data-reveal] {
     opacity: 1;
     transform: none;
   }

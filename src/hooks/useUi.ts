@@ -110,6 +110,8 @@ export function useReveal<T extends HTMLElement>(): React.RefObject<T | null> {
       return;
     }
 
+    const revealAll = () => targets.forEach((target) => target.setAttribute("data-reveal", "in"));
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -119,11 +121,21 @@ export function useReveal<T extends HTMLElement>(): React.RefObject<T | null> {
           }
         }
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
+      // threshold 0: qualquer pixel visível já revela. Com um valor maior, uma
+      // seção mais alta que a tela do celular pode nunca atingir a proporção
+      // exigida e ficar invisível para sempre.
+      { rootMargin: "0px 0px -5% 0px", threshold: 0 },
     );
 
     targets.forEach((target) => observer.observe(target));
-    return () => observer.disconnect();
+
+    // Rede de segurança: se algo impedir o observador de disparar, mostra tudo.
+    const fallback = window.setTimeout(revealAll, 2000);
+
+    return () => {
+      window.clearTimeout(fallback);
+      observer.disconnect();
+    };
   }, []);
 
   return ref;
