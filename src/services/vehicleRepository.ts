@@ -1,4 +1,4 @@
-import { vehicles as staticVehicles } from "@/data/vehicles";
+import { vehicles as demoVehicles } from "@/data/vehicles";
 import {
   DEFAULT_PER_PAGE,
   DEFAULT_SORT,
@@ -7,6 +7,7 @@ import {
   paginate,
   sortVehicles,
 } from "@/lib/vehicleQuery";
+import { getInventoryStore, isDatabaseConfigured, type InventoryStore } from "@/services/inventoryStore";
 import type {
   Vehicle,
   VehicleFacets,
@@ -17,9 +18,9 @@ import type {
 /**
  * Camada de acesso ao estoque.
  *
- * A UI depende SOMENTE desta interface. Hoje a implementacao le um arquivo
- * TypeScript; para ligar um ERP/CMS/banco basta implementar `VehicleRepository`
- * (ex.: `HttpVehicleRepository` abaixo) e apontar `getVehicleRepository()`.
+ * A interface nunca conversa com o banco: ela fala com o `VehicleRepository`.
+ * Hoje os dados vêm do `InventoryStore` (arquivo local ou Postgres) e o painel
+ * administrativo grava por ali. Trocar por um ERP é implementar esta interface.
  */
 export interface VehicleRepository {
   list(query?: VehicleQuery): Promise<VehicleListResult>;
@@ -33,47 +34,49 @@ export interface VehicleRepository {
   count(): Promise<number>;
 }
 
-/** Implementacao padrao: estoque de demonstracao em memoria. */
-export class StaticVehicleRepository implements VehicleRepository {
-  constructor(private readonly source: Vehicle[] = staticVehicles) {}
-
-  async all(): Promise<Vehicle[]> {
-    return this.source;
-  }
+/** Regras de vitrine compartilhadas por qualquer fonte de dados. */
+abstract class BaseVehicleRepository implements VehicleRepository {
+  abstract all(): Promise<Vehicle[]>;
 
   async list(query: VehicleQuery = {}): Promise<VehicleListResult> {
-    const filtered = filterVehicles(this.source, query.filters);
+    const source = await this.all();
+    const filtered = filterVehicles(source, query.filters);
     const sorted = sortVehicles(filtered, query.sort ?? DEFAULT_SORT);
     return paginate(sorted, query.page ?? 1, query.perPage ?? DEFAULT_PER_PAGE);
   }
 
   async getBySlug(slug: string): Promise<Vehicle | null> {
-    return this.source.find((vehicle) => vehicle.slug === slug) ?? null;
+    const source = await this.all();
+    return source.find((vehicle) => vehicle.slug === slug) ?? null;
   }
 
   async getById(id: string): Promise<Vehicle | null> {
     const target = id.toLowerCase();
-    return this.source.find((vehicle) => vehicle.id.toLowerCase() === target) ?? null;
+    const source = await this.all();
+    return source.find((vehicle) => vehicle.id.toLowerCase() === target) ?? null;
   }
 
   async getManyByIds(ids: string[]): Promise<Vehicle[]> {
     const wanted = new Set(ids.map((id) => id.toLowerCase()));
-    return this.source.filter((vehicle) => wanted.has(vehicle.id.toLowerCase()));
+    const source = await this.all();
+    return source.filter((vehicle) => wanted.has(vehicle.id.toLowerCase()));
   }
 
   async featured(limit = 6): Promise<Vehicle[]> {
-    const available = this.source.filter((vehicle) => vehicle.status !== "vendido");
+    const source = await this.all();
+    const available = source.filter((vehicle) => vehicle.status !== "vendido");
     const featured = available.filter((vehicle) => vehicle.featured);
     const rest = available.filter((vehicle) => !vehicle.featured);
     return sortVehicles([...featured, ...rest], "recentes").slice(0, limit);
   }
 
   /**
-   * Relacionados: mesma categoria/carroceria e faixa de preco proxima (+-35%),
-   * priorizando a mesma marca. Nunca inclui o proprio veiculo.
+   * Relacionados: mesma categoria/carroceria e faixa de preço próxima,
+   * priorizando a mesma marca. Nunca inclui o próprio veículo.
    */
   async related(vehicle: Vehicle, limit = 4): Promise<Vehicle[]> {
-    const candidates = this.source.filter(
+    const source = await this.all();
+    const candidates = source.filter(
       (item) => item.id !== vehicle.id && item.status !== "vendido",
     );
     const score = (item: Vehicle) => {
@@ -96,18 +99,51 @@ export class StaticVehicleRepository implements VehicleRepository {
   }
 
   async facets(): Promise<VehicleFacets> {
-    return buildFacets(this.source);
+    return buildFacets(await this.all());
   }
 
   async count(): Promise<number> {
-    return this.source.filter((vehicle) => vehicle.status === "disponivel").length;
+    const source = await this.all();
+    return source.filter((vehicle) => vehicle.status === "disponivel").length;
+  }
+}
+
+/** Estoque gravado pelo painel administrativo (arquivo local ou Postgres). */
+export class StoreVehicleRepository extends BaseVehicleRepository {
+  constructor(private readonly store: InventoryStore = getInventoryStore()) {
+    super();
+  }
+
+  async all(): Promise<Vehicle[]> {
+    const saved = await this.store.all();
+
+    // Primeira execução no computador local: carrega o estoque de demonstração
+    // para o site não abrir vazio. Em produção (Postgres) a carga é explícita,
+    // pelo comando `npm run estoque:carregar`.
+    if (saved.length === 0 && !isDatabaseConfigured()) {
+      await this.store.replaceAll(demoVehicles);
+      return demoVehicles;
+    }
+
+    return saved;
+  }
+}
+
+/** Estoque fixo em código, sem persistência (usado como alternativa). */
+export class StaticVehicleRepository extends BaseVehicleRepository {
+  constructor(private readonly source: Vehicle[] = demoVehicles) {
+    super();
+  }
+
+  async all(): Promise<Vehicle[]> {
+    return this.source;
   }
 }
 
 /**
- * Implementacao HTTP pronta para quando existir uma API de estoque.
- * Basta definir NEXT_PUBLIC_VEHICLES_API (ex.: https://api.loja.com.br/v1)
- * expondo /vehicles, /vehicles/:slug, /vehicles/facets.
+ * Implementação HTTP pronta para quando existir uma API de estoque própria.
+ * Defina NEXT_PUBLIC_VEHICLES_API (ex.: https://api.loja.com.br/v1) expondo
+ * /vehicles, /vehicles/:slug e /vehicles/facets.
  */
 export class HttpVehicleRepository implements VehicleRepository {
   constructor(
@@ -186,7 +222,7 @@ let instance: VehicleRepository | null = null;
 export function getVehicleRepository(): VehicleRepository {
   if (!instance) {
     const apiUrl = process.env.NEXT_PUBLIC_VEHICLES_API;
-    instance = apiUrl ? new HttpVehicleRepository(apiUrl) : new StaticVehicleRepository();
+    instance = apiUrl ? new HttpVehicleRepository(apiUrl) : new StoreVehicleRepository();
   }
   return instance;
 }

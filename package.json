@@ -8,10 +8,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "admin:senha": "node scripts/admin-senha.mjs",
+    "estoque:carregar": "node scripts/carregar-estoque.mjs"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.0",
     "next": "16.3.4",
+    "postgres": "^3.4.9",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },

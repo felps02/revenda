@@ -5,3 +5,7 @@ out
 next-env.d.ts
 *.tsbuildinfo
 .DS_Store
+data/
+public/veiculos/
+.env.local
+dev.log

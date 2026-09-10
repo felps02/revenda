@@ -1,0 +1,88 @@
+.page {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: var(--gutter);
+  background: var(--ink-900);
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  padding: clamp(1.75rem, 5vw, 2.5rem);
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-xl);
+}
+
+.card h1 {
+  margin-top: var(--sp-7);
+  font-size: var(--fs-h3);
+}
+
+.intro {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.form {
+  display: grid;
+  gap: var(--sp-5);
+  margin-top: var(--sp-7);
+}
+
+.passwordRow {
+  position: relative;
+}
+
+.reveal {
+  position: absolute;
+  inset-block: 0;
+  right: var(--sp-2);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  color: var(--text-subtle);
+  border-radius: var(--r-sm);
+}
+
+.reveal:hover {
+  color: var(--text);
+}
+
+.error {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: flex-start;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--danger-100);
+  border-radius: var(--r-md);
+  font-size: var(--fs-sm);
+  color: var(--danger-600);
+}
+
+.error svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.setup {
+  display: grid;
+  gap: var(--sp-2);
+  margin-top: var(--sp-7);
+  padding: var(--sp-5);
+  background: var(--brand-50);
+  border: 1px solid var(--brand-100);
+  border-radius: var(--r-md);
+  font-size: var(--fs-sm);
+  color: var(--ink-600);
+}
+
+.setup code {
+  padding: 2px 6px;
+  background: var(--ink-900);
+  border-radius: var(--r-xs);
+  font-size: var(--fs-xs);
+  color: var(--bone-50);
+}

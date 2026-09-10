@@ -1,10 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import WhatsAppFloat from "@/components/layout/WhatsAppFloat";
-import RevealRoot from "@/components/layout/RevealRoot";
 import { siteConfig } from "@/config/site";
 import { buildMetadata, dealerJsonLd, websiteJsonLd } from "@/lib/seo";
 
@@ -45,15 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" className={`${sora.variable} ${inter.variable}`}>
       <body>
-        <a className="skip-link" href="#conteudo">
-          Ir para o conteúdo
-        </a>
-        <Header />
-        <RevealRoot>
-          <main id="conteudo">{children}</main>
-        </RevealRoot>
-        <Footer />
-        <WhatsAppFloat />
+        {children}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(dealerJsonLd()) }}

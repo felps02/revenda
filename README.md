@@ -37,6 +37,7 @@ Requisitos: Node.js 20.9+.
 | `/sobre` | História, missão e valores, números, fotos da loja, depoimentos, localização |
 | `/contato` | Canais, formulário, horários e mapa |
 | `/favoritos` | Lista salva no navegador do visitante |
+| `/admin` | Painel da loja: cadastrar, editar, marcar como vendido, excluir |
 | `/api/leads` | Recebe os formulários e devolve protocolo |
 
 Também: `sitemap.xml`, `robots.txt`, página 404 própria, JSON-LD (`AutoDealer`, `WebSite`, `Car`, `BreadcrumbList`, `FAQPage`), Open Graph e Twitter Cards.
@@ -47,7 +48,9 @@ Também: `sitemap.xml`, `robots.txt`, página 404 própria, JSON-LD (`AutoDealer
 
 ```
 src/
-  app/                 rotas do App Router + globals.css
+  app/(site)/          rotas públicas do site
+  app/admin/           painel administrativo
+  app/api/             rotas de API (leads e painel)
   components/
     ui/                Button, Icon, Badge, Field, Modal, Rating, SectionHeading, Skeleton
     layout/            Header, Footer, Logo, WhatsAppFloat, Breadcrumbs
@@ -61,7 +64,7 @@ src/
   data/                estoque de demonstração, taxonomia, mídia, depoimentos
   hooks/               favoritos, media query, scroll lock, reveal
   lib/                 formatação, slug, SEO, validação, busca/filtro, cn
-  services/            vehicleRepository, whatsapp, financing, leadService
+  services/            vehicleRepository, inventoryStore, photoStorage, whatsapp, financing, leadService
   styles/tokens.css    design tokens (cores, tipografia, espaçamento, sombras)
 docs/arquitetura.md    contrato de arquitetura e design do projeto
 ```
@@ -95,11 +98,72 @@ defineVehicle({
 
 ---
 
+## Painel administrativo
+
+Área em `/admin` para a loja cadastrar e atualizar o estoque pelo navegador, sem mexer em código nem fazer deploy a cada carro novo.
+
+O que dá para fazer: cadastrar veículo com upload de fotos (arrastar e soltar, reordenar, definir a capa e a legenda de cada uma), editar qualquer campo do anúncio, marcar como **reservado** ou **vendido** direto na lista, colocar em destaque na home, excluir, e ver o anúncio publicado. Ao salvar, o site é atualizado na hora — o carro entra nos filtros, ganha URL própria e aparece no `sitemap.xml`.
+
+### 1. Criar o acesso
+
+```bash
+npm run admin:senha
+```
+
+O comando pergunta e-mail e senha e imprime três linhas. Cole no arquivo `.env.local` na raiz do projeto:
+
+```
+ADMIN_EMAIL=voce@sualoja.com.br
+ADMIN_PASSWORD_HASH=...
+AUTH_SECRET=...
+```
+
+A senha nunca é gravada em texto puro: fica só o hash (scrypt). A sessão dura 12 horas e o cookie é assinado, então não dá para forjar acesso sem o `AUTH_SECRET`.
+
+Reinicie o servidor e acesse http://localhost:3000/admin.
+
+### 2. Onde os dados ficam
+
+| | Sem `DATABASE_URL` | Com `DATABASE_URL` |
+|---|---|---|
+| Estoque | arquivo `data/estoque.json` | tabela `vehicles` no Postgres |
+| Fotos | pasta `public/veiculos/` | Vercel Blob (`BLOB_READ_WRITE_TOKEN`) |
+
+No seu computador funciona sem configurar nada. **Na Vercel o disco é temporário**, então banco e bucket são obrigatórios lá — sem eles, os cadastros somem no próximo deploy.
+
+### 3. Publicar na Vercel
+
+1. **Banco:** crie um Postgres gratuito no [Neon](https://neon.tech) ou no [Supabase](https://supabase.com) e copie a *connection string*.
+2. **Fotos:** no painel da Vercel, aba *Storage*, crie um **Blob Store** e copie o token.
+3. Em *Settings → Environment Variables*, cadastre:
+
+```
+DATABASE_URL=postgres://...
+BLOB_READ_WRITE_TOKEN=vercel_blob_rw_...
+ADMIN_EMAIL=voce@sualoja.com.br
+ADMIN_PASSWORD_HASH=...
+AUTH_SECRET=...
+```
+
+4. Leve o estoque atual para o banco (uma vez só):
+
+```bash
+DATABASE_URL="postgres://..." npm run estoque:carregar
+```
+
+A tabela é criada sozinha na primeira execução. Veículos com o mesmo código são atualizados, nunca duplicados.
+
+### Trocar de armazenamento
+
+O painel não conhece o banco: ele fala com `InventoryStore` ([src/services/inventoryStore.ts](src/services/inventoryStore.ts)) e com `PhotoStorage` ([src/services/photoStorage.ts](src/services/photoStorage.ts)). Para usar MySQL, S3, Cloudinary ou Supabase Storage, basta implementar a interface correspondente e devolvê-la na função `get...()` do arquivo — nenhuma tela muda.
+
+---
+
 ## Trocando os dados por uma API ou banco
 
 A interface **nunca** importa o estoque diretamente: ela fala com o `VehicleRepository` (`src/services/vehicleRepository.ts`).
 
-- Hoje: `StaticVehicleRepository`, que lê `src/data/vehicles.ts`.
+- Hoje: `StoreVehicleRepository`, que lê o `InventoryStore` (arquivo local ou Postgres) alimentado pelo painel. O estoque de demonstração de `src/data/vehicles.ts` serve como carga inicial.
 - Amanhã: defina `NEXT_PUBLIC_VEHICLES_API=https://api.sualoja.com.br/v1` e o `HttpVehicleRepository` — já implementado — assume, consumindo `/vehicles`, `/vehicles/:slug` e `/vehicles/facets`.
 - Outro backend (Prisma, Supabase, ERP): basta implementar a interface `VehicleRepository` e devolvê-la em `getVehicleRepository()`. Nenhum componente muda.
 
