@@ -61,7 +61,9 @@ export default function LoginForm() {
       </Field>
 
       <Field label="Senha" htmlFor="senha">
-        <div className={styles.passwordRow}>
+        {/* id próprio: sem ele o Field injetaria "senha" nesta div, duplicando
+            o id do input e fazendo o rótulo apontar para o lugar errado. */}
+        <div id="senha-campo" className={styles.passwordRow}>
           <TextInput
             id="senha"
             name="senha"

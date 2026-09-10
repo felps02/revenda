@@ -591,7 +591,7 @@ export default function VehicleForm({ initial, vehicleId }: VehicleFormProps) {
           htmlFor="highlight0"
           hint="Argumentos curtos que aparecem em lista na página do veículo"
         >
-          <div className={styles.highlights}>
+          <div id="destaques-campo" className={styles.highlights}>
             {[0, 1, 2].map((index) => (
               <input
                 key={index}
